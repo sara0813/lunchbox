@@ -1,4 +1,4 @@
-fetch("../partials/header.html")
+fetch("partials/header.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("header").innerHTML = data;
