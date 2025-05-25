@@ -1,0 +1,60 @@
+.find-container {
+    max-width: 400px;
+    margin: 120px auto;
+    padding: 20px;
+}
+
+.find-title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+.form-label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.underline-input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    outline: none;
+    padding: 10px 5px;
+    width: 100%;
+    transition: border-color 0.3s;
+}
+
+.underline-input:focus {
+    border-bottom: 1px solid #e25e5e;
+    outline: none;
+}
+
+.find-btn {
+    width: 100%;
+    background-color: #e03c3c;
+    color: white;
+    border: none;
+    padding: 12px;
+    margin-top: 30px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.go-login {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.go-login a {
+    color: #e25e5e;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.go-login a:hover {
+    text-decoration: underline;
+}

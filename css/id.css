@@ -1,10 +1,10 @@
-.login-container {
+.find-container {
       max-width: 400px;
       margin: 120px auto;
       padding: 20px;
     }
 
-    .login-title {
+    .find-title {
       font-weight: bold;
       text-align: center;
       margin-bottom: 40px;
@@ -32,7 +32,7 @@
       outline: none;
     }
 
-    .login-btn {
+    .find-btn {
       width: 100%;
       background-color: #e03c3c;
       color: white;
@@ -43,23 +43,18 @@
       font-size: 16px;
     }
 
-    .login-links {
-      text-align: right;
-      margin-top: 15px;
+    .go-login {
+      text-align: center;
+      margin-top: 25px;
       font-size: 14px;
     }
 
-    .login-links a {
+    .go-login a {
       color: #e25e5e;
       text-decoration: none;
-      margin: 0 5px;
+      margin-left: 5px;
     }
 
-    .login-links span {
-      color: #ccc;
-      margin: 0 3px;
-    }
-
-    .login-links a:hover {
+    .go-login a:hover {
       text-decoration: underline;
     }
