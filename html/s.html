@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI 식단 입력</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f9f9f9;
+      line-height: 1.5;
+    }
+
+    /* 상단 검정 바 */
+    .top-bar {
+      background-color: #000;
+      color: white;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .language-select {
+      position: relative;
+    }
+
+    .language-select select {
+      background-color: #000;
+      color: white;
+      border: 1px solid #555;
+      padding: 4px 10px;
+      font-size: 13px;
+      border-radius: 4px;
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 12px;
+      padding-right: 30px;
+    }
+
+    /* 메인 네비게이션 바 */
+    .nav-bar {
+      background-color: white;
+      padding: 16px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-left .logo {
+      font-weight: bold;
+      font-size: 20px;
+      color: #333;
+      margin-right: 20px;
+    }
+
+    .nav-left a {
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-right input {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+    }
+
+    .icons {
+      display: flex;
+      gap: 16px;
+      font-size: 20px;
+    }
+
+    /* 현재 위치 */
+    .breadcrumb {
+      padding: 16px 30px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    /* 타이틀 */
+    .main-title {
+      text-align: center;
+      font-size: 48px;
+      font-weight: 900;
+      color: #222;
+      margin: 30px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 입력 폼 영역 */
+    .form-section {
+      padding: 30px;
+      background-color: white;
+      border-radius: 10px;
+      max-width: 700px;
+      margin: 20px auto;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .form-section label {
+      display: block;
+      margin: 16px 0 6px;
+      font-weight: 500;
+    }
+
+    .form-section input,
+    .form-section select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+
+    .form-section input:hover,
+    .form-section select:hover {
+      border: 1px solid #5a5a5a;
+      background: linear-gradient(90deg, #e0f7fa, #f1f8e9);
+    }
+
+    /* 성별 select 화살표 정렬 개선 */
+    .form-section select {
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 36px;
+    }
+
+    .required {
+      color: red;
+      margin-left: 6px;
+    }
+
+    .submit-btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 14px;
+      background-color: #333;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #555;
+    }
+
+    /* 하단 푸터 */
+    .footer {
+      background-color: #000;
+      color: white;
+      padding: 30px;
+      margin-top: 50px;
+    }
+
+    .footer-content {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer .logo {
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 검정 바 -->
+  <div class="top-bar">
+    <div id="random-msg">🔥 오늘도 건강하게 살아봐요!</div>
+    <div class="language-select">
+      <select>
+        <option>한국어 🇰🇷</option>
+        <option>English 🇺🇸</option>
+        <option>日本語 🇯🇵</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- 메인 네비게이션 -->
+  <div class="nav-bar">
+    <div class="nav-left">
+      <div class="logo">HEALTHYME</div>
+      <a href="#">Home</a>
+      <a href="#">Routine</a>
+      <a href="#">Food</a>
+      <a href="#">로그인</a>
+    </div>
+    <div class="nav-right">
+      <input type="text" placeholder="검색하기 🔍">
+      <div class="icons">
+        <span>🤍</span>
+        <span>🛒</span>
+        <span>👤</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 위치 경로 -->
+  <div class="breadcrumb">Home &gt; AI 입력 페이지</div>
+
+  <!-- 메인 제목 -->
+  <div class="main-title">🚀 AI 식단 코칭</div>
+
+  <!-- 입력 폼 -->
+  <form action="result.html" method="GET" class="form-section">
+    <label>이름 <span class="required">*</span></label>
+    <input type="text" name="name" required>
+
+    <label>성별 <span class="required">*</span></label>
+    <select name="gender" required>
+      <option value="">선택하세요</option>
+      <option value="남">남</option>
+      <option value="여">여</option>
+    </select>
+
+    <label>생년월일 <span class="required">*</span></label>
+    <input type="date" name="birth" required>
+
+    <label>키/몸무게/체지방률 <span class="required">*</span></label>
+    <input type="number" name="height" placeholder="키(cm)" required>
+    <input type="number" name="weight" placeholder="몸무게(kg)" required>
+    <input type="number" name="fat" placeholder="체지방률(%)" required>
+
+    <button type="submit" class="submit-btn">결과 확인</button>
+  </form>
+
+  <!-- 하단 푸터 -->
+  <div class="footer">
+    <div class="footer-content">
+      <div class="logo">HEALTHYME</div>
+      <div>
+        📞 문의: 1234-5678<br>
+        📱 앱 다운로드: 안드로이드 / iOS<br>
+        👤 마이페이지 / 이용약관 / 개인정보처리방침
+      </div>
+    </div>
+  </div>
+
+  <!-- JS: 랜덤 문구 -->
+  <script>
+    const phrases = [
+      "🔥 오늘도 건강을 위해 힘내요!",
+      "💪 지금이 바로 시작할 시간!",
+      "🍽️ 건강한 식단으로 에너지 충전!",
+      "🏃‍♀️ 몸도 마음도 리셋하는 하루!"
+    ];
+    const randomMsg = phrases[Math.floor(Math.random() * phrases.length)];
+    document.getElementById("random-msg").innerText = randomMsg;
+  </script>
+
+</body>
+</html>

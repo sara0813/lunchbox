@@ -1,0 +1,49 @@
+.banner-container {
+  display: flex;
+  width: 100%;
+  height: 600px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* ✅ 아래 스크롤 제거 */
+}
+
+.banner {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: flex 0.5s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.left {
+  background-color: #757575;
+}
+
+.right {
+  background-color: #b6b6b6;
+}
+
+.banner-container:hover .banner {
+  flex: 0;
+}
+
+.banner-container .banner:hover {
+  flex: 1;
+}
+
+h2.banner-text {
+  color: #ddd;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+  position: relative;
+}
+
+/* ✅ 배너 전체를 클릭 가능하게 만드는 오버레이 링크 */
+.overlay-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
