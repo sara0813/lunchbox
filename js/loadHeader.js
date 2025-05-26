@@ -3,6 +3,7 @@ fetch("partials/header.html")
   .then(data => {
     document.getElementById("header").innerHTML = data;
 
+    // 배너 문구 랜덤 출력
     const messages = [
       "몸도 마음도 리셋하는 하루!",
       "현미밥 20% 할인중!!",
@@ -21,16 +22,37 @@ fetch("partials/header.html")
       bannerText.textContent = messages[randomIndex];
     }
 
+    // 언어 선택
     const languageSelect = document.getElementById("languageSelect");
     if (languageSelect) {
       languageSelect.addEventListener("change", function () {
         const selectedLang = this.value;
         if (selectedLang !== "ko") {
           alert("아직 지원하지 않는 서비스입니다.");
-
-          this.selectedIndex = 0; 
-          this.blur(); 
+          this.selectedIndex = 0;
+          this.blur();
         }
       });
     }
-  })
+
+    // 🔹 로그인 상태에 따른 메뉴 표시
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const userName = localStorage.getItem("userName") || "";
+    const authArea = document.getElementById("auth-area");
+
+    if (authArea) {
+      if (isLoggedIn) {
+        authArea.innerHTML = `<a class="nav-link px-2" href="/html/mypage.html">${userName}님 | <span onclick="logout()" style="cursor:pointer; color:red;">로그아웃</span></a>`;
+      } else {
+        authArea.innerHTML = `<a class="nav-link px-2" href="/html/login.html">로그인</a>`;
+      }
+    }
+
+  });
+
+// 🔹 로그아웃 함수
+function logout() {
+  localStorage.clear();
+  alert("로그아웃 되었습니다.");
+  window.location.href = "/index.html";
+}
