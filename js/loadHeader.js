@@ -56,3 +56,25 @@ function logout() {
   alert("로그아웃 되었습니다.");
   window.location.href = "/index.html";
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const protectedLinks = [
+    'a[href="html/mypage.html"]',
+    'a[href="html/cart.html"]',
+    'a[href="html/wishlist.html"]'
+  ];
+
+  protectedLinks.forEach(selector => {
+    const link = document.querySelector(selector);
+    if (link) {
+      link.addEventListener("click", function (e) {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (!isLoggedIn) {
+          e.preventDefault();
+          alert("로그인이 필요합니다.");
+          window.location.href = `/html/login.html?redirect=${encodeURIComponent(location.pathname)}`;
+        }
+      });
+    }
+  });
+});
