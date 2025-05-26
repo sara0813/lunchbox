@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!isLoggedIn) {
         e.preventDefault();
         alert("로그인이 필요합니다.");
-        window.location.href = `/html/login.html?redirect=${encodeURIComponent(location.pathname)}`;
+        window.location.href = `html/login.html?redirect=${encodeURIComponent(location.pathname)}`;
       }
     });
   }
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
           if (!isLoggedIn) {
             e.preventDefault();
             alert("로그인이 필요합니다.");
-            window.location.href = `/html/login.html?redirect=${encodeURIComponent(location.pathname)}`;
+            window.location.href = `html/login.html?redirect=${encodeURIComponent(location.pathname)}`;
           }
         });
       });
