@@ -1,0 +1,75 @@
+<!-- 상단 배너 -->
+<div class="top-banner position-relative text-center d-flex justify-content-center align-items-center gap-3">
+    <div id="banner-message" class="d-inline-flex align-items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-heart"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M2.965 12.695a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2m-.8 3.108.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125M8 5.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+        </svg>
+        <span id="banner-text-content">로딩 중...</span>
+    </div>
+
+    <div class="language-select position-absolute end-0 me-3">
+        <select name="language" id="languageSelect">
+            <option value="ko" selected>한국어 🇰🇷</option>
+            <option value="en">English 🇺🇸</option>
+            <option value="jp">日本語 🇯🇵</option>
+            <option value="zh">中文 🇨🇳</option>
+        </select>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg bg-white border-bottom py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+        <!-- 로고 -->
+        <a class="navbar-brand fw-bold" href="#">Business name</a>
+
+        <!-- 가운데 메뉴 -->
+        <ul class="navbar-nav flex-row gap-4">
+            <li class="nav-item">
+                <a class="nav-link px-2" href="#">Home</a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-2" href="html/contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-2" href="html/about.html">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-2" href="html/login.html"> 로그인</a>
+            </li>
+        </ul>
+
+        <!-- 검색 + 아이콘 -->
+        <div class="d-flex align-items-center gap-3">
+            <form class="d-flex" role="search">
+                <input class="form-control form-control-sm" type="search" placeholder="검색하기" aria-label="Search">
+                <button class="btn btn-outline-secondary btn-sm ms-1" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                </button>
+            </form>
+            <a class="nav-link px-2 active" href="html/wishlist.html"> <svg xmlns="http://www.w3.org/2000/svg"
+                    width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path
+                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                </svg> </a>
+
+            <a class="nav-link px-2 active" href="html/cart.html"> <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                    height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                    <path
+                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                </svg> </a>
+
+            <a class="nav-link px-2 active" href="html/mypage.html"> <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                    height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                    <path
+                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                </svg></a>
+        </div>
+    </div>
+</nav>
