@@ -31,7 +31,6 @@ function renderProducts(list) {
         <div class="product-card">
           <div class="product-image">
             <span class="discount-badge">-${product.discountPercent}%</span>
-            <span class="icon-heart" onclick="toggleHeart(this)">🤍</span>
           </div>
           <button class="cart-btn" onclick="alert('장바구니에 담겼습니다!')">장바구니에 담기</button>
           <div class="mt-2 px-2 pb-3">
@@ -69,6 +68,8 @@ function sortAndRender(option) {
   }
   renderProducts(sorted);
 }
+
+
 
 // ✅ 전역 등록: 다른 파일에서 쓸 수 있게!
 window.sortAndRender = sortAndRender;
