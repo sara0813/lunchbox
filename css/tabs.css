@@ -1,0 +1,44 @@
+#tabMenu {
+  display: flex;
+  justify-content: center;
+  gap: 60px; /* 간격 크게 */
+  padding: 20px 0 16px 0; /* 위아래 여유 */
+  border-bottom: 2px solid #e0e0e0;
+  background-color: #fff;
+  z-index: 10;
+  position: relative;
+  font-family: 'Pretendard', sans-serif;
+}
+
+#tabMenu .nav-link {
+  font-weight: 600; /* 더 두껍게 */
+  font-size: 17px;
+  color: #333;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+#tabMenu .nav-link:hover {
+  color: #000;
+  border-bottom: 3px solid #ff4d4d;
+}
+
+#tabMenu .nav-link.active {
+  color: #000;
+  font-weight: 700;
+  border-bottom: 3px solid #ff4d4d;
+}
+
+/* 반응형 대응 */
+@media (max-width: 768px) {
+  #tabMenu {
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 16px 0 10px;
+  }
+  #tabMenu .nav-link {
+    font-size: 15px;
+  }
+}

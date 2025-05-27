@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { title: "[도시락 F]", price: "₩6,500", original: "₩7,500", rating: "★★★★★", reviews: 111 }
   ];
 
-  // 할인율 계산 필드 추가
   products.forEach(p => {
     const priceNum = parseInt(p.price.replace(/[^\d]/g, ""));
     const originalNum = parseInt(p.original.replace(/[^\d]/g, ""));
@@ -32,10 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
             <button class="cart-btn" onclick="alert('장바구니에 담겼습니다!')">장바구니에 담기</button>
             <div class="mt-2 px-2 pb-3">
               <p class="fw-bold mb-1">${product.title}</p>
-              <small class="text-danger fw-bold">${product.price}</small> <del class="text-muted">${product.original}</del>
+              <small class="text-danger fw-bold">${product.price}</small>
+              <del class="text-muted">${product.original}</del>
               <div class="text-warning">${product.rating} <small class="text-muted">(${product.reviews})</small></div>
             </div>
-            <a href="html/detail.html" class="stretched-link"></a>
+            <a href="detail.html" class="stretched-link"></a>
           </div>
         </div>
       `;
@@ -66,6 +66,9 @@ document.addEventListener("DOMContentLoaded", () => {
     sortAndRender(sortSelect.value);
   });
 
-  // 최초 로딩 시 할인율 기준
   sortAndRender("discount");
 });
+
+function toggleHeart(el) {
+  el.textContent = el.textContent === "🤍" ? "❤️" : "🤍";
+}

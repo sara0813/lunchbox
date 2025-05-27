@@ -9,7 +9,6 @@ p {
   line-height: 1.6;
 }
 
-/* ====== STATS 영역 ====== */
 .stats-card {
   background-color: #fff;
   border-radius: 15px;
@@ -86,7 +85,6 @@ p {
   }
 }
 
-
 /* ====== 서비스 설명 ====== */
 .service-icon {
   width: 70px;
@@ -131,7 +129,7 @@ p {
 .quote-box {
   background-color: #f9f9f9;
   padding: 18px 25px;
-  border-left: 5px solid #F94E4E;
+  border-left: 10px solid #F94E4E;
   font-size: 1.1rem;
   font-weight: 500;
   display: inline-block;
