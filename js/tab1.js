@@ -18,12 +18,21 @@ let currentCount = 12;
 // 상품 출력 함수
 function renderProducts(list) {
   const container = document.getElementById("product-list");
+  const loadMoreBtn = document.getElementById("loadMoreBtn");
   if (!container) {
     console.error("상품 컨테이너가 없습니다.");
     return;
   }
 
   container.innerHTML = "";
+
+  // 더보기 버튼 상태 업데이트
+  if (list.length > currentCount) {
+    loadMoreBtn.style.display = "block";
+  } else {
+    loadMoreBtn.style.display = "none";
+  }
+
   list.slice(0, currentCount).forEach(product => {
     const card = `
       <div class="col-6 col-md-3">
@@ -68,10 +77,10 @@ function sortAndRender(option) {
   renderProducts(sorted);
 }
 
-// ✅ 전역 등록: 다른 파일에서 쓸 수 있게!
+// ✅ 전역 등록
 window.sortAndRender = sortAndRender;
 
-// ✅ DOM 로드 후 상품 첫 렌더링
+// ✅ 초기 렌더링 및 이벤트 바인딩
 document.addEventListener("DOMContentLoaded", () => {
   sortAndRender("discount");
 

@@ -13,22 +13,22 @@ const products = Array.from({ length: 30 }, (_, i) => {
   };
 });
 
-let currentCount = 12;
-
-// 상품 출력 함수
-function renderProducts(list) {
+function renderTop10PopularProducts() {
   const container = document.getElementById("product-list");
-  if (!container) {
-    console.error("상품 컨테이너가 없습니다.");
-    return;
-  }
+  if (!container) return;
 
+  const sorted = [...products].sort((a, b) => b.reviews - a.reviews).slice(0, 10);
   container.innerHTML = "";
-  list.slice(0, currentCount).forEach(product => {
+
+  sorted.forEach((product, index) => {
+    const rank = index + 1;
+    const rankColor = rank === 1 ? "#ffd700" : rank === 2 ? "#c0c0c0" : rank === 3 ? "#cd7f32" : "#dee2e6";
+
     const card = `
       <div class="col-6 col-md-3">
-        <div class="product-card">
+        <div class="product-card p-3 position-relative" style="border-top: 4px solid ${rankColor}; background-color: ${rank <= 3 ? '#fffef6' : '#ffffff'};">
           <div class="product-image">
+            <span class="rank-badge">TOP ${rank}</span>
             ${product.discountPercent ? `<span class="discount-badge">-${product.discountPercent}%</span>` : ""}
           </div>
           <button class="cart-btn" onclick="alert('장바구니에 담겼습니다!')">장바구니에 담기</button>
@@ -40,7 +40,6 @@ function renderProducts(list) {
               <small class="text-muted">(${product.reviews})</small>
             </div>
           </div>
-          <a href="html/products.html" class="stretched-link"></a>
         </div>
       </div>
     `;
@@ -48,40 +47,6 @@ function renderProducts(list) {
   });
 }
 
-// 정렬 후 출력 함수
-function sortAndRender(option) {
-  let sorted = [...products];
-  switch (option) {
-    case "discount":
-      sorted.sort((a, b) => b.discountPercent - a.discountPercent);
-      break;
-    case "priceAsc":
-      sorted.sort((a, b) => a.priceValue - b.priceValue);
-      break;
-    case "priceDesc":
-      sorted.sort((a, b) => b.priceValue - a.priceValue);
-      break;
-    case "review":
-      sorted.sort((a, b) => b.reviews - a.reviews);
-      break;
-  }
-  renderProducts(sorted);
-}
-
-// ✅ 전역 등록: 다른 파일에서 쓸 수 있게!
-window.sortAndRender = sortAndRender;
-
-// ✅ DOM 로드 후 상품 첫 렌더링
 document.addEventListener("DOMContentLoaded", () => {
-  sortAndRender("discount");
-
-  document.getElementById("sortOption").addEventListener("change", e => {
-    currentCount = 12;
-    sortAndRender(e.target.value);
-  });
-
-  document.getElementById("loadMoreBtn").addEventListener("click", () => {
-    currentCount += 8;
-    sortAndRender(document.getElementById("sortOption").value);
-  });
+  renderTop10PopularProducts();
 });

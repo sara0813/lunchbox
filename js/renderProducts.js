@@ -13,7 +13,7 @@ const products = Array.from({ length: 30 }, (_, i) => {
   };
 });
 
-let currentCount = 12;
+const currentCount = 8; // 고정된 8개만 출력
 
 // 상품 출력 함수
 function renderProducts(list) {
@@ -48,40 +48,13 @@ function renderProducts(list) {
   });
 }
 
-// 정렬 후 출력 함수
-function sortAndRender(option) {
-  let sorted = [...products];
-  switch (option) {
-    case "discount":
-      sorted.sort((a, b) => b.discountPercent - a.discountPercent);
-      break;
-    case "priceAsc":
-      sorted.sort((a, b) => a.priceValue - b.priceValue);
-      break;
-    case "priceDesc":
-      sorted.sort((a, b) => b.priceValue - a.priceValue);
-      break;
-    case "review":
-      sorted.sort((a, b) => b.reviews - a.reviews);
-      break;
-  }
-  renderProducts(sorted);
+// 정렬 후 출력 함수 (필수 아님 - 하나의 방식만 보여줄 경우)
+function sortAndRender() {
+  const discounted = products.filter(p => p.discountPercent > 0);
+  renderProducts(discounted);
 }
 
-// ✅ 전역 등록: 다른 파일에서 쓸 수 있게!
-window.sortAndRender = sortAndRender;
-
-// ✅ DOM 로드 후 상품 첫 렌더링
+// DOM 로드 후 실행
 document.addEventListener("DOMContentLoaded", () => {
-  sortAndRender("discount");
-
-  document.getElementById("sortOption").addEventListener("change", e => {
-    currentCount = 12;
-    sortAndRender(e.target.value);
-  });
-
-  document.getElementById("loadMoreBtn").addEventListener("click", () => {
-    currentCount += 8;
-    sortAndRender(document.getElementById("sortOption").value);
-  });
+  sortAndRender();
 });
