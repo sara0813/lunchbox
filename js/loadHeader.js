@@ -7,24 +7,6 @@ fetch("partials/header.html")
     const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     const baseURL = isLocal ? '../' : '/lunchbox/';
 
-    // 🔹 배너 문구 랜덤 출력
-    const messages = [
-      "몸도 마음도 리셋하는 하루!",
-      "현미밥 20% 할인중!!",
-      "오늘도 건강한 식사",
-      "당신의 식단을 AI가 책임집니다!",
-      "오늘은 어떤 도시락이 좋을까요?",
-      "따뜻한 도시락 어때요?",
-      "AI 도시락 추천 서비스 지금 체험해보세요!",
-      "더 똑똑하게 먹고 더 간편하게 살아가기!",
-      "식사의 새로운 기준, 지금 바로 시작!",
-      "“더 건강한 식사를, 더 편리하게”"
-    ];
-    const bannerText = document.getElementById("banner-text-content");
-    if (bannerText) {
-      const randomIndex = Math.floor(Math.random() * messages.length);
-      bannerText.textContent = messages[randomIndex];
-    }
 
     // 🔹 언어 선택
     const languageSelect = document.getElementById("languageSelect");
@@ -52,16 +34,16 @@ fetch("partials/header.html")
       }
     }
 
-    // 🔹 보호된 링크 처리
-    const protectedLinks = [
-      `a[href="${baseURL}html/mypage.html"]`,
-      `a[href="${baseURL}html/cart.html"]`,
-      `a[href="${baseURL}html/wishlist.html"]`
+    // 🔹 보호된 링크 처리 (href 끝나는 값 기준)
+    const protectedSelectors = [
+      'a[href$="mypage.html"]',
+      'a[href$="cart.html"]',
+      'a[href$="wishlist.html"]'
     ];
 
-    protectedLinks.forEach(selector => {
-      const link = document.querySelector(selector);
-      if (link) {
+    protectedSelectors.forEach(selector => {
+      const links = document.querySelectorAll(selector);
+      links.forEach(link => {
         link.addEventListener("click", function (e) {
           if (!isLoggedIn) {
             e.preventDefault();
@@ -69,7 +51,7 @@ fetch("partials/header.html")
             window.location.href = `${baseURL}html/login.html?redirect=${encodeURIComponent(location.pathname)}`;
           }
         });
-      }
+      });
     });
   });
 
