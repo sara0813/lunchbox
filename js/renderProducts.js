@@ -62,10 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProducts(sorted);
   }
 
-  sortSelect.addEventListener("change", () => {
-    sortAndRender(sortSelect.value);
-  });
-
   // 최초 로딩 시 할인율 기준
   sortAndRender("discount");
 });
