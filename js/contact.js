@@ -1,6 +1,9 @@
 function handleSubmit(event) {
   event.preventDefault();
 
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  const baseURL = isLocal ? '../' : '/lunchbox/';
+
   const phoneInput = document.querySelector('input[type="tel"]');
   const messageInput = document.querySelector('textarea');
 
@@ -21,5 +24,5 @@ function handleSubmit(event) {
   }
 
   alert("문의가 정상적으로 접수되었습니다. 감사합니다!");
-  window.location.href = "index.html";
+  window.location.href = `${baseURL}index.html`;
 }

@@ -3,7 +3,11 @@ fetch("partials/header.html")
   .then(data => {
     document.getElementById("header").innerHTML = data;
 
-    // 배너 문구 랜덤 출력
+    // 🔹 baseURL 설정
+    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    const baseURL = isLocal ? '../' : '/lunchbox/';
+
+    // 🔹 배너 문구 랜덤 출력
     const messages = [
       "몸도 마음도 리셋하는 하루!",
       "현미밥 20% 할인중!!",
@@ -22,7 +26,7 @@ fetch("partials/header.html")
       bannerText.textContent = messages[randomIndex];
     }
 
-    // 언어 선택
+    // 🔹 언어 선택
     const languageSelect = document.getElementById("languageSelect");
     if (languageSelect) {
       languageSelect.addEventListener("change", function () {
@@ -42,39 +46,39 @@ fetch("partials/header.html")
 
     if (authArea) {
       if (isLoggedIn) {
-        authArea.innerHTML = `<a class="nav-link px-2" href="/html/mypage.html">${userName}님 | <span onclick="logout()" style="cursor:pointer; color:red;">로그아웃</span></a>`;
+        authArea.innerHTML = `<a class="nav-link px-2" href="${baseURL}html/mypage.html">${userName}님 | <span onclick="logout()" style="cursor:pointer; color:red;">로그아웃</span></a>`;
       } else {
-        authArea.innerHTML = `<a class="nav-link px-2" href="/html/login.html">로그인</a>`;
+        authArea.innerHTML = `<a class="nav-link px-2" href="${baseURL}html/login.html">로그인</a>`;
       }
     }
 
+    // 🔹 보호된 링크 처리
+    const protectedLinks = [
+      `a[href="${baseURL}html/mypage.html"]`,
+      `a[href="${baseURL}html/cart.html"]`,
+      `a[href="${baseURL}html/wishlist.html"]`
+    ];
+
+    protectedLinks.forEach(selector => {
+      const link = document.querySelector(selector);
+      if (link) {
+        link.addEventListener("click", function (e) {
+          if (!isLoggedIn) {
+            e.preventDefault();
+            alert("로그인이 필요합니다.");
+            window.location.href = `${baseURL}html/login.html?redirect=${encodeURIComponent(location.pathname)}`;
+          }
+        });
+      }
+    });
   });
 
 // 🔹 로그아웃 함수
 function logout() {
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  const baseURL = isLocal ? '../' : '/lunchbox/';
+
   localStorage.clear();
   alert("로그아웃 되었습니다.");
-  window.location.href = "/index.html";
+  window.location.href = `${baseURL}index.html`;
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  const protectedLinks = [
-    'a[href="html/mypage.html"]',
-    'a[href="html/cart.html"]',
-    'a[href="html/wishlist.html"]'
-  ];
-
-  protectedLinks.forEach(selector => {
-    const link = document.querySelector(selector);
-    if (link) {
-      link.addEventListener("click", function (e) {
-        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-        if (!isLoggedIn) {
-          e.preventDefault();
-          alert("로그인이 필요합니다.");
-          window.location.href = `html/login.html?redirect=${encodeURIComponent(location.pathname)}`;
-        }
-      });
-    }
-  });
-});

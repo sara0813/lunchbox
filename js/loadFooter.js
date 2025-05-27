@@ -3,6 +3,10 @@ fetch("partials/footer.html")
   .then(data => {
     document.getElementById("footer").innerHTML = data;
 
+    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    const baseURL = isLocal ? '../' : '/lunchbox/';
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
     const instaLink = document.getElementById("instagramLink");
     if (instaLink) {
       instaLink.addEventListener("click", function (e) {
@@ -11,12 +15,10 @@ fetch("partials/footer.html")
       });
     }
 
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
     const protectedLinks = [
-      'a[href="html/mypage.html"]',
-      'a[href="html/cart.html"]',
-      'a[href="html/wishlist.html"]'
+      `a[href="${baseURL}html/mypage.html"]`,
+      `a[href="${baseURL}html/cart.html"]`,
+      `a[href="${baseURL}html/wishlist.html"]`
     ];
 
     protectedLinks.forEach(selector => {
@@ -26,7 +28,7 @@ fetch("partials/footer.html")
           if (!isLoggedIn) {
             e.preventDefault();
             alert("로그인이 필요합니다.");
-            window.location.href = `html/login.html?redirect=${encodeURIComponent(location.pathname)}`;
+            window.location.href = `${baseURL}html/login.html?redirect=${encodeURIComponent(location.pathname)}`;
           }
         });
       }

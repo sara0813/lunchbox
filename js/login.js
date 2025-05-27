@@ -2,6 +2,9 @@
 console.log("✅ login.js 로드됨");
 
 function loginUser() {
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  const baseURL = isLocal ? '../' : '/lunchbox/';
+
   const phone = document.getElementById("phone").value;
   const password = document.getElementById("password").value;
 
@@ -12,7 +15,7 @@ function loginUser() {
     localStorage.setItem("userName", user.name);
     localStorage.setItem("phone", user.phone);
     alert("로그인 성공!");
-    window.location.href = "/index.html";
+    window.location.href = `${baseURL}index.html`;
   } else {
     alert("연락처 또는 비밀번호가 틀렸습니다.");
   }
