@@ -36,7 +36,7 @@
 }
 
 .banner.left {
-  background-image: url("/images/b1.png"); /* 경로는 너의 이미지 경로에 맞게 */
+  background-image: url("../images/baa1.png"); /* 경로는 너의 이미지 경로에 맞게 */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
