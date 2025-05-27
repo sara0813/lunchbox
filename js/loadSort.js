@@ -1,5 +1,8 @@
 // js/loadSort.js
 document.addEventListener("DOMContentLoaded", function () {
+    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  const baseURL = isLocal ? '../' : '/lunchbox/';
+  
   const placeholder = document.getElementById("sort-template");
 
   fetch("partials/sortTemplate.html")

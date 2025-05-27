@@ -1,5 +1,7 @@
 // js/randomBanner.js
 document.addEventListener("DOMContentLoaded", function () {
+
+
   const messages = [
     "몸도 마음도 리셋하는 하루!",
     "현미밥 20% 할인중!!",

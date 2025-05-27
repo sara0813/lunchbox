@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  const baseURL = isLocal ? '../' : '/lunchbox/';
+
   const products = [
     { title: "[도시락 A]", price: "₩5,000", original: "₩6,000", rating: "★★★★☆", reviews: 3083 },
     { title: "[도시락 B]", price: "₩4,500", original: "₩5,500", rating: "★★★☆☆", reviews: 537 },
@@ -35,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <del class="text-muted">${product.original}</del>
               <div class="text-warning">${product.rating} <small class="text-muted">(${product.reviews})</small></div>
             </div>
-            <a href="detail.html" class="stretched-link"></a>
+            <a href="product.html" class="stretched-link"></a>
           </div>
         </div>
       `;

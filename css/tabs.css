@@ -1,8 +1,9 @@
+/* 전체 탭 영역 */
 #tabMenu {
   display: flex;
   justify-content: center;
-  gap: 60px; /* 간격 크게 */
-  padding: 20px 0 16px 0; /* 위아래 여유 */
+  gap: 60px;
+  padding: 20px 0 16px 0;
   border-bottom: 2px solid #e0e0e0;
   background-color: #fff;
   z-index: 10;
@@ -10,8 +11,9 @@
   font-family: 'Pretendard', sans-serif;
 }
 
+/* 기본 탭 링크 스타일 */
 #tabMenu .nav-link {
-  font-weight: 600; /* 더 두껍게 */
+  font-weight: 600;
   font-size: 17px;
   color: #333;
   text-decoration: none;
@@ -20,18 +22,21 @@
   transition: all 0.2s ease;
 }
 
+/* ✅ hover 시: 색만 진하게 (underline 없음) */
 #tabMenu .nav-link:hover {
-  color: #000;
-  border-bottom: 3px solid #ff4d4d;
+  color: #111;
+  background-color: #f8f8f8;
 }
 
+/* ✅ active 탭: 강조된 검은 텍스트 + 빨간 밑줄 */
 #tabMenu .nav-link.active {
   color: #000;
   font-weight: 700;
   border-bottom: 3px solid #ff4d4d;
+  background-color: transparent;
 }
 
-/* 반응형 대응 */
+/* ✅ 반응형 대응 */
 @media (max-width: 768px) {
   #tabMenu {
     flex-wrap: wrap;

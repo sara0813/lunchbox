@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const links = document.querySelectorAll("#tabMenu a");
-  const current = location.pathname.split("/").pop(); // e.g. products.html
+  const currentPage = location.pathname.split("/").pop();
+  const tabLinks = document.querySelectorAll("#tabMenu .nav-link");
 
-  links.forEach(link => {
-    const page = link.getAttribute("data-page");
-    if (page === current) {
+  tabLinks.forEach(link => {
+    const targetPage = link.getAttribute("data-page");
+    if (currentPage === targetPage) {
       link.classList.add("active");
     }
   });
