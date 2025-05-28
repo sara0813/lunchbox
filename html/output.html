@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>main page</title>
+    <script>
+        const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        const base = document.createElement('base');
+        base.href = isLocal ? '../' : '/lunchbox/';
+        document.head.appendChild(base);
+    </script>
+    <link href="css/output.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <div class="main-section">
+        <div class="main-title">분석 결과</div>
+        <div class="user-summary">
+            <span id="user-name">사용자</span>님, 오늘도 건강관리 시작해볼까요? <br />
+            아래는 AI 분석한 결과입니다.
+        </div>
+
+
+        <div class="body-predict-image">
+            <img src="https://via.placeholder.com/180x240.png?text=AI+Body+Prediction" alt="AI 체형 예측 이미지" />
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="tooltip-custom">
+                    <strong>BMI 분류</strong><br />저체중: &lt;18.5<br />정상: 18.5–24.9<br />과체중: 25–29.9<br />비만: 30+
+                </div>
+                <h4>BMI</h4>
+                <div class="value counter" data-value="22.5">0</div><span class="unit">kg/m²</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="tooltip-custom">
+                    <strong>기초대사량</strong><br />휴식 시 소모하는 최소 에너지입니다.
+                </div>
+                <h4>기초대사량</h4>
+                <div class="value counter" data-value="1500">0</div><span class="unit">kcal</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="tooltip-custom">
+                    탄수화물 추천:<br />🍚 현미밥<br />🍞 통밀빵<br />🍠 고구마
+                </div>
+                <h4>권장 탄수화물</h4>
+                <div class="value counter" data-value="250">0</div><span class="unit">g</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="tooltip-custom">
+                    단백질 추천:<br />🥚 달걀<br />🍗 닭가슴살<br />🥛 두유
+                </div>
+                <h4>권장 단백질</h4>
+                <div class="value counter" data-value="80">0</div><span class="unit">g</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="tooltip-custom">
+                    지방 추천:<br />🥑 아보카도<br />🥜 견과류<br />🐟 연어
+                </div>
+                <h4>권장 지방</h4>
+                <div class="value counter" data-value="60">0</div><span class="unit">g</span>
+            </div>
+        </div>
+
+        <div class="graph-section">
+            <div class="graph-label">총 권장 에너지 소비량 (1일 기준)</div>
+            <div class="graph-bar">
+                <div class="graph-bar-fill"></div>
+                <div class="graph-indicator">당신</div>
+            </div>
+            <small>평균: 2,000 kcal 기준</small>
+        </div>
+
+        <div class="recommend-section">
+            <h2>추천 식단 상품</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <img src="https://via.placeholder.com/200x150" alt="상품1" />
+                    <div class="product-name">단백질 쉐이크 1kg</div>
+                    <div class="price">₩25,000</div>
+                </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/200x150" alt="상품2" />
+                    <div class="product-name">저칼로리 도시락 5팩</div>
+                    <div class="price">₩18,000</div>
+                </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/200x150" alt="상품3" />
+                    <div class="product-name">닭가슴살 혼합팩</div>
+                    <div class="price">₩22,000</div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="js/randomBanner.js"></script>
+    <script src="js/loadHeader.js"></script>
+    <script src="js/loadFooter.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const counters = document.querySelectorAll('.counter');
+        const options = { threshold: 0.6 };
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const value = parseFloat(el.dataset.value);
+                    let count = 0;
+                    const step = value / 60;
+
+                    const interval = setInterval(() => {
+                        count += step;
+                        if (count >= value) {
+                            el.textContent = value % 1 === 0 ? value : value.toFixed(1);
+                            clearInterval(interval);
+                        } else {
+                            el.textContent = count % 1 === 0 ? Math.floor(count) : count.toFixed(1);
+                        }
+                    }, 20);
+                    obs.unobserve(el);
+                }
+            });
+        }, options);
+
+        counters.forEach(counter => observer.observe(counter));
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const name = localStorage.getItem("userName") || "사용자";
+            document.getElementById("user-name").textContent = name;
+        });
+    </script>
+
+</body>
+
+</html>

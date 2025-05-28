@@ -1,14 +1,21 @@
+// js/loadHeader.js
 fetch("partials/header.html")
   .then(res => res.text())
   .then(data => {
     document.getElementById("header").innerHTML = data;
 
-    // 🔹 baseURL 설정
+    // ✅ 배너 메시지 초기화 (함수 존재 여부 체크 포함)
+    if (typeof initBannerMessage === "function") {
+      initBannerMessage();
+    } else {
+      console.warn("⚠️ initBannerMessage 함수가 정의되지 않았습니다.");
+    }
+
+    // ✅ baseURL 설정
     const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     const baseURL = isLocal ? '../' : '/lunchbox/';
 
-
-    // 🔹 언어 선택
+    // ✅ 언어 선택
     const languageSelect = document.getElementById("languageSelect");
     if (languageSelect) {
       languageSelect.addEventListener("change", function () {
@@ -21,7 +28,7 @@ fetch("partials/header.html")
       });
     }
 
-    // 🔹 로그인 상태에 따른 메뉴 표시
+    // ✅ 로그인 상태에 따른 메뉴 표시
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     const userName = localStorage.getItem("userName") || "";
     const authArea = document.getElementById("auth-area");
@@ -34,7 +41,7 @@ fetch("partials/header.html")
       }
     }
 
-    // 🔹 보호된 링크 처리 (href 끝나는 값 기준)
+    // ✅ 보호된 링크 처리
     const protectedSelectors = [
       'a[href$="mypage.html"]',
       'a[href$="cart.html"]',
@@ -55,7 +62,7 @@ fetch("partials/header.html")
     });
   });
 
-// 🔹 로그아웃 함수
+// 🔹 로그아웃 함수 (전역)
 function logout() {
   const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
   const baseURL = isLocal ? '../' : '/lunchbox/';

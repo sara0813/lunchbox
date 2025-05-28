@@ -1,7 +1,7 @@
 // js/randomBanner.js
-document.addEventListener("DOMContentLoaded", function () {
 
-
+// 🔹 랜덤 배너 메시지 표시 함수
+function initBannerMessage() {
   const messages = [
     "몸도 마음도 리셋하는 하루!",
     "현미밥 20% 할인중!!",
@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
   const bannerText = document.getElementById("banner-text-content");
+
   if (bannerText) {
-    // 3초마다 메시지를 변경
     let index = 0;
     bannerText.textContent = messages[index];
 
@@ -40,5 +40,34 @@ document.addEventListener("DOMContentLoaded", function () {
       index = (index + 1) % messages.length;
       bannerText.textContent = messages[index];
     }, 3000);
+  } else {
+    console.warn("⚠️ 배너 텍스트 요소가 존재하지 않습니다.");
+  }
+}
+
+// 🔹 좌우 배너 텍스트 페이드 효과
+document.addEventListener("DOMContentLoaded", () => {
+  const leftBanner = document.querySelector(".banner.left");
+  const rightBanner = document.querySelector(".banner.right");
+
+  if (leftBanner && rightBanner) {
+    const leftText = leftBanner.querySelector("h2");
+    const rightText = rightBanner.querySelector("h2");
+
+    leftBanner.addEventListener("mouseenter", () => {
+      if (rightText) rightText.style.opacity = "0";
+    });
+
+    leftBanner.addEventListener("mouseleave", () => {
+      if (rightText) rightText.style.opacity = "1";
+    });
+
+    rightBanner.addEventListener("mouseenter", () => {
+      if (leftText) leftText.style.opacity = "0";
+    });
+
+    rightBanner.addEventListener("mouseleave", () => {
+      if (leftText) leftText.style.opacity = "1";
+    });
   }
 });
