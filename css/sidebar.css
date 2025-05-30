@@ -1,0 +1,37 @@
+.mypage-sidebar {
+  font-size: 15px;
+  color: #333;
+}
+
+.mypage-sidebar h6 {
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+.mypage-sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.mypage-sidebar ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #999;
+  transition: color 0.2s;
+}
+
+.sidebar-link:hover {
+  color: #000;
+  font-weight: 600;
+}
+
+.sidebar-link.active {
+  color: #f44336; /* 빨간색 강조 */
+  font-weight: bold;
+}
