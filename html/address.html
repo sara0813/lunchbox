@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>pay page</title>
+    <title>주소록 관리</title>
     <script>
         const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
         const base = document.createElement('base');
@@ -23,14 +23,51 @@
         <div class="row">
             <!-- 사이드바 -->
             <div id="sidebar" class="col-md-3 mb-4"></div>
+
+            <section class="col-md-9">
+                <h3 class="mb-4">주소록 관리</h3>
+
+                <!-- 주소 추가 버튼 -->
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-outline-primary" id="add-address">+ 새 주소 추가</button>
+                </div>
+
+                <!-- 주소 목록 -->
+                <div id="address-list">
+                    <div class="card mb-3 address-card">
+                        <div class="card-body">
+                            <h5 class="card-title">집</h5>
+                            <p class="card-text address-text">서울시 강남구 테헤란로 123, 101동 202호</p>
+                            <p class="card-text recipient-text">받는사람: 김철수 / 010-1234-5678</p>
+                            <div class="text-end">
+                                <button class="btn btn-sm btn-secondary me-2 edit-btn">수정</button>
+                                <button class="btn btn-sm btn-outline-danger delete-btn">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3 address-card">
+                        <div class="card-body">
+                            <h5 class="card-title">회사</h5>
+                            <p class="card-text address-text">경기도 성남시 판교역로 50, 4층</p>
+                            <p class="card-text recipient-text">받는사람: 김철수 / 010-5678-1234</p>
+                            <div class="text-end">
+                                <button class="btn btn-sm btn-secondary me-2 edit-btn">수정</button>
+                                <button class="btn btn-sm btn-outline-danger delete-btn">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </div>
     </div>
-
     <div id="footer"></div>
     <script src="js/randomBanner.js"></script>
     <script src="js/loadHeader.js"></script>
     <script src="js/loadFooter.js"></script>
     <script src="js/loadSidebar.js"></script>
+    <script src="js/address.js"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"

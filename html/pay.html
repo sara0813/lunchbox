@@ -23,7 +23,57 @@
         <div class="row">
             <!-- 사이드바 -->
             <div id="sidebar" class="col-md-3 mb-4"></div>
+
+            <!-- 결제수단 본문 -->
+            <section class="col-md-9">
+                <p class="text-muted">Home / 마이페이지 / 내 결제수단</p>
+                <h3 class="mb-4">내 결제수단</h3>
+
+                <!-- 새 카드 추가 버튼 -->
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-outline-primary" id="add-card">+ 새 카드 추가</button>
+                </div>
+
+                <!-- 카드 목록 -->
+                <div id="card-list">
+                    <div class="card mb-3 card-item">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title mb-1">KB국민카드</h5>
+                                <p class="card-text mb-0">**** **** **** 1234</p>
+                                <small class="text-muted">유효기간: 08/27</small>
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-secondary me-2 edit-btn">수정</button>
+                                <button class="btn btn-sm btn-outline-danger delete-btn">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3 card-item">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title mb-1">신한카드</h5>
+                                <p class="card-text mb-0">**** **** **** 5678</p>
+                                <small class="text-muted">유효기간: 04/26</small>
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-secondary me-2 edit-btn">수정</button>
+                                <button class="btn btn-sm btn-outline-danger delete-btn">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 결제수단이 없는 경우 -->
+                <!-- <p class="text-muted">등록된 결제수단이 없습니다.</p> -->
+
+            </section>
         </div>
+    </div>
+
+    </div>
     </div>
 
     <div id="footer"></div>
@@ -31,7 +81,7 @@
     <script src="js/loadHeader.js"></script>
     <script src="js/loadFooter.js"></script>
     <script src="js/loadSidebar.js"></script>
-
+    <script src="js/pay.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
