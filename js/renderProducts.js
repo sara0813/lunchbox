@@ -1,53 +1,84 @@
-// js/wishlist.js
+const productListDiv = document.getElementById("product-list");
+const loadMoreBtn = document.getElementById("loadMoreBtn");
+const sortSelect = document.getElementById("sortOption");
 
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("wishlist-items");
+let currentIndex = 0;
+const initialLoad = 12;
+const batchSize = 3;
+let sortedProducts = [];
 
-  if (!window.products || !Array.isArray(window.products)) {
-    console.error("products 배열이 없습니다.");
-    return;
+// 렌더링 함수
+function renderProducts(batch = initialLoad, reset = false) {
+  if (reset) {
+    productListDiv.innerHTML = "";
+    currentIndex = 0;
   }
 
-  // 🔹 3~5개 랜덤 선택
-  const shuffled = [...window.products].sort(() => 0.5 - Math.random());
-  const randomCount = Math.floor(Math.random() * 3) + 3; // 3~5개
-  const selected = shuffled.slice(0, randomCount);
-
-  const row = document.createElement("div");
-  row.className = "row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4";
-
-  selected.forEach(p => {
+  const end = Math.min(currentIndex + batch, sortedProducts.length);
+  for (let i = currentIndex; i < end; i++) {
+    const p = sortedProducts[i];
     const col = document.createElement("div");
-    col.className = "col";
+    col.className = "col-6 col-md-3";
 
-    const card = document.createElement("div");
-    card.className = "product-card position-relative h-100";
-
-    card.innerHTML = `
-      <div class="product-image position-relative">
-        <img src="${p.image}" alt="${p.title}" class="img-fluid w-100 h-100 object-fit-cover">
+    col.innerHTML = `
+      <div class="product-card position-relative">
         ${p.discount > 0 ? `<div class="discount-badge">${p.discount}% 할인</div>` : ""}
-      </div>
-      <div class="p-3">
-        <h6 class="fw-bold mb-1">${p.title}</h6>
-        <div class="text-muted small mb-2">리뷰 ${p.reviews.toLocaleString()}개 • ${p.rating}</div>
-        <div class="fw-bold text-danger">
-          ₩${p.price.toLocaleString()}
-          ${p.discount > 0 ? `<del class="text-muted ms-2 small">₩${p.original.toLocaleString()}</del>` : ""}
+        <div class="product-image">
+          <img src="${p.image}" alt="${p.title}" class="img-fluid w-100 h-100 object-fit-cover">
         </div>
+        <div class="mt-2">
+          <div class="fw-semibold">${p.title}</div>
+          <div class="text-muted small">${p.rating} | 리뷰 ${p.reviews.toLocaleString()}개</div>
+          <div class="text-danger fw-bold">₩${p.price.toLocaleString()}</div>
+          ${p.discount > 0 && p.original ? `<div class="text-muted text-decoration-line-through small">₩${p.original.toLocaleString()}</div>` : ""}
+        </div>
+        <button class="cart-btn">장바구니에 담기</button>
       </div>
-      <button class="cart-btn">장바구니 담기</button>
     `;
 
-    // ✅ 장바구니 버튼 클릭 시 알림
-    const cartBtn = card.querySelector(".cart-btn");
-    cartBtn.addEventListener("click", () => {
-      alert(`[${p.title}]이(가) 장바구니에 추가되었습니다!`);
-    });
+    productListDiv.appendChild(col);
 
-    col.appendChild(card);
-    row.appendChild(col);
-  });
+    // ✅ 버튼 이벤트 바인딩
+    const cartButton = col.querySelector(".cart-btn");
+    if (cartButton) {
+      cartButton.addEventListener("click", () => {
+        alert(`[${p.title}]이(가) 장바구니에 추가되었습니다!`);
+      });
+    }
+  }
 
-  container.appendChild(row);
+  currentIndex = end;
+  loadMoreBtn.style.display = currentIndex >= sortedProducts.length ? "none" : "block";
+}
+
+// 정렬 함수
+function sortProducts(criteria) {
+  sortedProducts = [...products];
+
+  switch (criteria) {
+    case "discount":
+      sortedProducts.sort((a, b) => b.discount - a.discount);
+      break;
+    case "priceAsc":
+      sortedProducts.sort((a, b) => a.price - b.price);
+      break;
+    case "priceDesc":
+      sortedProducts.sort((a, b) => b.price - a.price);
+      break;
+    case "review":
+      sortedProducts.sort((a, b) => b.reviews - a.reviews);
+      break;
+  }
+
+  renderProducts(initialLoad, true); // reset
+}
+
+// 이벤트 바인딩
+sortSelect.addEventListener("change", () => {
+  sortProducts(sortSelect.value);
 });
+
+loadMoreBtn.addEventListener("click", () => renderProducts(batchSize));
+
+// 초기 실행
+sortProducts("discount");
