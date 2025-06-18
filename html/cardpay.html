@@ -2,117 +2,201 @@
 <html lang="ko">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>결제 페이지</title>
-  <script>
-    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-    const base = document.createElement('base');
-    base.href = isLocal ? '../' : '/lunchbox/';
-    document.head.appendChild(base);
-  </script>
-  <link href="css/index.css" rel="stylesheet">
-  <link href="css/cardpay.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>결제 페이지</title>
+    <script>
+        const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        const base = document.createElement('base');
+        base.href = isLocal ? '../' : '/lunchbox/';
+        document.head.appendChild(base);
+    </script>
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/cardpay.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-  <div id="header"></div>
+    <div id="header"></div>
 
-  <div class="wrapper">
-    <h2>주문 정보</h2>
+    <div class="wrapper">
+        <h2>주문 정보</h2>
 
-    <!-- 배송지 선택 -->
-    <!-- ... (기존 배송지 코드 생략 가능) ... -->
+        <!-- 배송지 선택 -->
+        <div class="section mb-5">
+            <h4 class="fw-bold mb-3">배송지 선택</h4>
 
-    <!-- 주문상품 -->
-    <div class="product-title">주문상품</div>
-    <div class="section products">
-      <div class="product">
-        <img src="images/6.png">
-        <div class="product-info">
-          <div class="title">닭가슴살 큐브 + 단호박</div>
-          <div class="option">[옵션: L] 수량: 1개</div>
-          <div class="price">할인금액: -1,300원<br><strong>6,900원</strong> <del>8,200원</del></div>
+            <!-- 탭 버튼 -->
+            <div class="btn-group mb-4" role="group" aria-label="배송지 선택 탭">
+                <input type="radio" class="btn-check" name="address-tab" id="tabRecent" autocomplete="off" checked
+                    onclick="showTab('recent')">
+                <label class="btn btn-outline-dark" for="tabRecent">최근 배송지</label>
+
+                <input type="radio" class="btn-check" name="address-tab" id="tabDirect" autocomplete="off"
+                    onclick="showTab('direct')">
+                <label class="btn btn-outline-secondary" for="tabDirect">직접입력</label>
+            </div>
+
+            <!-- 최근 배송지 -->
+            <div id="recent" class="address">
+                <p class="mb-1"><strong>[01848]</strong> 서울 노원구 동일로176길 5-15 (공릉동) 지층 3호 제일왼쪽 집</p>
+                <p class="mb-3">수령인: 홍길동 | 연락처: 010-5387-9776</p>
+                <select class="form-select w-100 mb-3">
+                    <option selected>-- 메시지 선택 (선택사항) --</option>
+                    <option>문 앞에 놔주세요</option>
+                    <option>벨 누르지 말아주세요</option>
+                    <option>경비실에 맡겨주세요</option>
+                    <option>배송 전 연락 부탁드려요</option>
+                </select>
+            </div>
+
+            <!-- 직접입력 -->
+            <div id="direct" class="input-form" style="display:none;">
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" id="sameInfo" checked>
+                    <label class="form-check-label" for="sameInfo">주문자 정보와 동일</label>
+                </div>
+
+                <div class="mb-2">
+                    <input type="text" class="form-control" placeholder="받는사람 *">
+                </div>
+
+                <div class="row g-2 mb-2">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" placeholder="우편번호">
+                    </div>
+
+                </div>
+
+                <input type="text" class="form-control mb-2" placeholder="기본주소">
+                <input type="text" class="form-control mb-2" placeholder="상세주소">
+
+                <div class="row g-2 mb-2">
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option>010</option>
+                            <option>011</option>
+                            <option>017</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="1234">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="5678">
+                    </div>
+                </div>
+
+                <select class="form-select w-100 mb-3">
+                    <option selected>-- 메시지 선택 (선택사항) --</option>
+                    <option>문 앞에 놔주세요</option>
+                    <option>벨 누르지 말아주세요</option>
+                    <option>경비실에 맡겨주세요</option>
+                    <option>배송 전 연락 부탁드려요</option>
+                </select>
+
+                <!-- 기본 배송지로 저장 체크박스 -->
+                <div class="save-default-address mt-3 d-flex align-items-center">
+                    <input class="me-2" type="checkbox" id="defaultAddress">
+                    <label class="save-label mb-0" for="defaultAddress">
+                        기본 배송지로 저장
+                    </label>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="product">
-        <img src="images/3.png">
-        <div class="product-info">
-          <div class="title">연어 스테이크 + 현미밥</div>
-          <div class="option">[옵션: M] 수량: 1개</div>
-          <div class="price">할인금액: -400원<br><strong>8,500원</strong> <del>8,900원</del></div>
+
+
+
+
+        <!-- 주문상품 -->
+        <div class="product-title">주문상품</div>
+        <div class="section products">
+            <div class="product">
+                <img src="images/6.png">
+                <div class="product-info">
+                    <div class="title">닭가슴살 큐브 + 단호박</div>
+                    <div class="option">[옵션: L] 수량: 1개</div>
+                    <div class="price">할인금액: -1,300원<br><strong>6,900원</strong> <del>8,200원</del></div>
+                </div>
+            </div>
+            <div class="product">
+                <img src="images/3.png">
+                <div class="product-info">
+                    <div class="title">연어 스테이크 + 현미밥</div>
+                    <div class="option">[옵션: M] 수량: 1개</div>
+                    <div class="price">할인금액: -400원<br><strong>8,500원</strong> <del>8,900원</del></div>
+                </div>
+            </div>
+            <div class="product">
+                <img src="images/14.png">
+                <div class="product-info">
+                    <div class="title">닭가슴살 김치볶음밥</div>
+                    <div class="option">[옵션: S] 수량: 1개</div>
+                    <div class="price">할인금액: -700원<br><strong>6,200원</strong> <del>6,900원</del></div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="product">
-        <img src="images/14.png">
-        <div class="product-info">
-          <div class="title">닭가슴살 김치볶음밥</div>
-          <div class="option">[옵션: S] 수량: 1개</div>
-          <div class="price">할인금액: -700원<br><strong>6,200원</strong> <del>6,900원</del></div>
+
+        <!-- 정기배송 플랜 -->
+        <div class="section">
+            <h4 class="fw-bold">정기배송 플랜</h4>
+            <div class="text-muted small mb-2">※ 각 도시락별로 정기배송 횟수를 선택하세요.</div>
+            <div id="subscription-options"></div>
+            <p class="text-muted small mt-3" id="meal-info">총 0끼 배송 예정</p>
         </div>
-      </div>
+
+        <!-- 결제정보 -->
+        <div class="section payment-summary">
+            <h3>월 정기결제 금액</h3>
+            <div style="font-size:22px; font-weight:bold; margin-top:10px; margin-bottom:10px;">
+                ₩<span id="monthly-price">0</span>
+            </div>
+            <p class="text-muted small mb-4">* 매달 자동 결제되며, 마이페이지에서 언제든 해지할 수 있습니다.</p>
+
+            <!-- 결제수단 선택 -->
+            <h3>결제 수단</h3>
+            <div>
+                <label><input type="radio" name="pay_select" onclick="togglePayOptions(false)"> 최근 결제수단</label><br>
+                <label><input type="radio" name="pay_select" onclick="togglePayOptions(true)" checked> 다른 결제수단
+                    선택</label>
+            </div>
+            <div id="pay-options" class="mt-3">
+                <div class="pay-box selected" onclick="selectPay(this)">📋 카드결제</div>
+                <div class="pay-box" onclick="selectPay(this)">🏦 무통장입금</div>
+                <div class="pay-box" onclick="selectPay(this)">💬 페이</div>
+                <div class="pay-box" onclick="selectPay(this)">💳 토스</div>
+                <div class="pay-box" onclick="selectPay(this)">🏁 가상계좌</div>
+                <div class="pay-box" onclick="selectPay(this)">⏱ 실시간 계좌이체</div>
+            </div>
+
+            <p class="text-muted small mt-3">소액 결제의 경우 PG사 정책에 따라 결제 금액 제한이 있을 수 있습니다.</p>
+            <label class="mt-2 d-block"><input type="checkbox" checked> 결제수단과 입력정보를 다음에도 사용</label>
+
+            <button class="btn-pay" onclick="handlePayment()">결제하기</button>
+        </div>
     </div>
 
-    <!-- 정기배송 플랜 -->
-    <div class="section">
-      <h4 class="fw-bold">정기배송 플랜</h4>
-      <div class="text-muted small mb-2">※ 각 도시락별로 정기배송 횟수를 선택하세요.</div>
-      <div id="subscription-options"></div>
-      <p class="text-muted small mt-3" id="meal-info">총 0끼 배송 예정</p>
-    </div>
+    <div id="footer"></div>
 
-    <!-- 결제정보 -->
-    <div class="section payment-summary">
-      <h3>월 정기결제 금액</h3>
-      <div style="font-size:22px; font-weight:bold; margin-top:10px; margin-bottom:10px;">
-        ₩<span id="monthly-price">0</span>
-      </div>
-      <p class="text-muted small mb-4">* 매달 자동 결제되며, 마이페이지에서 언제든 해지할 수 있습니다.</p>
+    <script src="js/randomBanner.js"></script>
+    <script src="js/loadHeader.js"></script>
+    <script src="js/loadFooter.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
-      <!-- 결제수단 선택 -->
-      <h3>결제 수단</h3>
-      <div>
-        <label><input type="radio" name="pay_select" onclick="togglePayOptions(false)"> 최근 결제수단</label><br>
-        <label><input type="radio" name="pay_select" onclick="togglePayOptions(true)" checked> 다른 결제수단 선택</label>
-      </div>
-      <div id="pay-options" class="mt-3">
-        <div class="pay-box selected" onclick="selectPay(this)">🧾 카드결제</div>
-        <div class="pay-box" onclick="selectPay(this)">🏦 무통장입금</div>
-        <div class="pay-box" onclick="selectPay(this)">💬 페이</div>
-        <div class="pay-box" onclick="selectPay(this)">💳 토스</div>
-        <div class="pay-box" onclick="selectPay(this)">🏁 가상계좌</div>
-        <div class="pay-box" onclick="selectPay(this)">⏱ 실시간 계좌이체</div>
-      </div>
+    <script>
+        const cartItems = [
+            { id: 1, title: '닭가슴살 큐브 + 단호박', price: 6900 },
+            { id: 2, title: '연어 스테이크 + 현미밥', price: 8500 },
+            { id: 3, title: '닭가슴살 김치볶음밥', price: 6200 }
+        ];
 
-      <p class="text-muted small mt-3">소액 결제의 경우 PG사 정책에 따라 결제 금액 제한이 있을 수 있습니다.</p>
-      <label class="mt-2 d-block"><input type="checkbox" checked> 결제수단과 입력정보를 다음에도 사용</label>
-
-      <button class="btn-pay" onclick="handlePayment()">결제하기</button>
-    </div>
-  </div>
-
-  <div id="footer"></div>
-
-  <script src="js/randomBanner.js"></script>
-  <script src="js/loadHeader.js"></script>
-  <script src="js/loadFooter.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script>
-    const cartItems = [
-      { id: 1, title: '닭가슴살 큐브 + 단호박', price: 6900 },
-      { id: 2, title: '연어 스테이크 + 현미밥', price: 8500 },
-      { id: 3, title: '닭가슴살 김치볶음밥', price: 6200 }
-    ];
-
-    function renderSubscriptionOptions() {
-      const container = document.getElementById("subscription-options");
-      container.innerHTML = "";
-      cartItems.forEach(item => {
-        const box = document.createElement("div");
-        box.className = "border rounded p-3 mb-3";
-        box.innerHTML = `
+        function renderSubscriptionOptions() {
+            const container = document.getElementById("subscription-options");
+            container.innerHTML = "";
+            cartItems.forEach(item => {
+                const box = document.createElement("div");
+                box.className = "border rounded p-3 mb-3";
+                box.innerHTML = `
           <div class="fw-semibold mb-2">${item.title}</div>
           <div class="row g-2 align-items-center">
             <div class="col-md-6">
@@ -134,47 +218,56 @@
             </div>
           </div>
         `;
-        container.appendChild(box);
-      });
-    }
+                container.appendChild(box);
+            });
+        }
 
-    function updateSubscription() {
-      let totalMeals = 0;
-      let totalPrice = 0;
-      cartItems.forEach(item => {
-        const dayEl = document.querySelector(`.days-select[data-id='${item.id}']`);
-        const mealEl = document.querySelector(`.meals-select[data-id='${item.id}']`);
-        const days = parseInt(dayEl.value);
-        const meals = parseInt(mealEl.value);
-        const count = days * meals * 4;
-        totalMeals += count;
-        totalPrice += count * item.price;
-      });
-      document.getElementById("meal-info").innerText =
-        `총 ${totalMeals}끼 배송 예정 / 월 예상 결제금액: ₩${totalPrice.toLocaleString()}`;
-      document.getElementById("monthly-price").innerText = totalPrice.toLocaleString();
-    }
+        function updateSubscription() {
+            let totalMeals = 0;
+            let totalPrice = 0;
+            cartItems.forEach(item => {
+                const dayEl = document.querySelector(`.days-select[data-id='${item.id}']`);
+                const mealEl = document.querySelector(`.meals-select[data-id='${item.id}']`);
+                const days = parseInt(dayEl.value);
+                const meals = parseInt(mealEl.value);
+                const count = days * meals * 4;
+                totalMeals += count;
+                totalPrice += count * item.price;
+            });
+            document.getElementById("meal-info").innerText =
+                `총 ${totalMeals}끼 배송 예정 / 월 예상 결제금액: ₩${totalPrice.toLocaleString()}`;
+            document.getElementById("monthly-price").innerText = totalPrice.toLocaleString();
+        }
 
-    function togglePayOptions(show) {
-      document.getElementById("pay-options").style.display = show ? 'block' : 'none';
-    }
+        function showTab(tab) {
+            document.getElementById("recent").style.display = tab === "recent" ? "block" : "none";
+            document.getElementById("direct").style.display = tab === "direct" ? "block" : "none";
 
-    function selectPay(el) {
-      document.querySelectorAll('.pay-box').forEach(box => box.classList.remove('selected'));
-      el.classList.add('selected');
-    }
+            document.querySelectorAll(".tab").forEach(btn => btn.classList.remove("active"));
+            const tabIndex = tab === "recent" ? 0 : 1;
+            document.querySelectorAll(".tab")[tabIndex].classList.add("active");
+        }
 
-    function handlePayment() {
-      alert("결제가 완료되었습니다. 감사합니다!");
-      location.href ="#"
-    }
+        function togglePayOptions(show) {
+            document.getElementById("pay-options").style.display = show ? 'block' : 'none';
+        }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      renderSubscriptionOptions();
-      togglePayOptions(true);
-      updateSubscription();
-    });
-  </script>
+        function selectPay(el) {
+            document.querySelectorAll('.pay-box').forEach(box => box.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function handlePayment() {
+            alert("결제가 완료되었습니다. 감사합니다!");
+            location.href = "#"
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderSubscriptionOptions();
+            togglePayOptions(true);
+            updateSubscription();
+        });
+    </script>
 </body>
 
 </html>
