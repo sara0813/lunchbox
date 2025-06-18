@@ -1,0 +1,9 @@
+.wishlist-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background-color: #fafafa;
+}

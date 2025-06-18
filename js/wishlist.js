@@ -18,17 +18,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   selected.forEach(p => {
     const col = document.createElement("div");
-    col.className = "col";
+    col.className = "col-6 col-md-3 d-flex";
 
     const card = document.createElement("div");
-    card.className = "product-card position-relative h-100";
+    card.className = "product-card position-relative w-100 d-flex flex-column";
 
     card.innerHTML = `
       <div class="product-image position-relative">
         <img src="${p.image}" alt="${p.title}" class="img-fluid w-100 h-100 object-fit-cover">
         ${p.discount > 0 ? `<div class="discount-badge">${p.discount}% 할인</div>` : ""}
       </div>
-      <div class="p-3">
+      <div class="p-3 flex-grow-1">
         <h6 class="fw-bold mb-1">${p.title}</h6>
         <div class="text-muted small mb-2">리뷰 ${p.reviews.toLocaleString()}개 • ${p.rating}</div>
         <div class="fw-bold text-danger">
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ${p.discount > 0 ? `<del class="text-muted ms-2 small">₩${p.original.toLocaleString()}</del>` : ""}
         </div>
       </div>
-      <button class="cart-btn">장바구니 담기</button>
+      <button class="cart-btn mt-auto">장바구니 담기</button>
     `;
 
     // ✅ 장바구니 버튼 클릭 시 알림

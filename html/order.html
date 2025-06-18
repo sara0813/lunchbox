@@ -22,9 +22,74 @@
     <div class="container my-5">
         <div class="row">
             <!-- 사이드바 -->
-            <div id="sidebar" class="col-md-3 mb-4"></div>
+          <aside class="col-md-3 mb-4">
+            <h5 class="fw-bold mb-3">내 정보</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-decoration-none">내 프로필</a></li>
+              <li><a href="#" class="text-decoration-none">주소록 관리</a></li>
+              <li><a href="#" class="text-decoration-none">내 결제수단</a></li>
+            </ul>
+            <h5 class="fw-bold mt-4 mb-2">주문 목록</h5>
+            <ul class="list-unstyled">
+              <li class="text-danger fw-bold">주문 내역</li>
+              <li><a href="#" class="text-decoration-none">취소/반품/교환 내역</a></li>
+            </ul>
+            <h5 class="fw-bold mt-4 mb-2">즐겨찾기</h5>
+          </aside>
+      
+          <!-- 주문 내역 본문 -->
+          <section class="col-md-9">
+            
+            <h3 class="mb-4">주문 내역</h3>
+      
+            <!-- 주문 내역 리스트 -->
+            <div class="table-responsive">
+              <table class="table align-middle table-hover">
+                <thead class="table-light">
+                  <tr>
+                    <th>주문번호</th>
+                    <th>상품명</th>
+                    <th>수량</th>
+                    <th>결제상태</th>
+                    <th>배송상태</th>
+                    <th>주문일</th>
+                    <th>상세</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>#20240529001</td>
+                    <td>오트밀 닭가슴살 도시락</td>
+                    <td>2</td>
+                    <td><span class="badge bg-success">결제 완료</span></td>
+                    <td><span class="badge bg-warning text-dark">배송 중</span></td>
+                    <td>2025-05-28</td>
+                    <td><button class="btn btn-sm btn-outline-primary">상세보기</button></td>
+                  </tr>
+                  <tr>
+                    <td>#20240527005</td>
+                    <td>곤약 볶음밥 도시락</td>
+                    <td>1</td>
+                    <td><span class="badge bg-secondary">결제 취소</span></td>
+                    <td>-</td>
+                    <td>2025-05-27</td>
+                    <td><button class="btn btn-sm btn-outline-primary">상세보기</button></td>
+                  </tr>
+                  <tr>
+                    <td>#20240526003</td>
+                    <td>고구마 단백질 도시락</td>
+                    <td>3</td>
+                    <td><span class="badge bg-success">결제 완료</span></td>
+                    <td><span class="badge bg-info text-dark">배송 완료</span></td>
+                    <td>2025-05-26</td>
+                    <td><button class="btn btn-sm btn-outline-primary">상세보기</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
         </div>
-    </div>
+      </div>
 
     <div id="footer"></div>
     <script src="js/randomBanner.js"></script>
