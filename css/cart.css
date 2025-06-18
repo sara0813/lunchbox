@@ -1,102 +1,105 @@
 body {
-    font-family: sans-serif;
+  font-family: '맑은 고딕', sans-serif;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 0;
 }
 
 .cart-container {
-    width: 80%;
-    margin: 30px auto;
+  width: 80%;
+  margin: 30px auto;
+  background-color: #fff;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  border-radius: 8px;
 }
 
-.cart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cart-title {
-    font-size: 24px;
-    font-weight: bold;
+.cart-container h2 {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .product {
-    display: flex;
-    position: relative;
-    align-items: center;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  position: relative;
 }
 
-.product input[type="checkbox"] {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    transform: scale(1.2);
+.product-check {
+  transform: scale(1.3);
+  margin-right: 12px;
 }
 
 .delete-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    color: red;
-    font-weight: bold;
-    font-size: 18px;
-    cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 .product img {
-    width: 100px;
-    margin-left: 30px;
-    margin-right: 15px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
-.product-details {
-    flex-grow: 1;
+.product .flex-grow-1 {
+  flex-grow: 1;
 }
 
-.product-price {
-    font-weight: bold;
+.product .fw-semibold {
+  font-weight: 600;
 }
 
-.product-original {
-    text-decoration: line-through;
-    color: gray;
-    margin-left: 5px;
+.product .text-danger {
+  font-size: 16px;
+}
+
+.product .text-decoration-line-through {
+  font-size: 13px;
 }
 
 .quantity-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
 }
 
-.total {
-    text-align: right;
-    font-size: 18px;
-    margin-top: 20px;
-    font-weight: bold;
-}
-
-.order-actions {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-.btn {
-    padding: 10px 20px;
-    border: none;
-    background-color: black;
-    color: white;
-    cursor: pointer;
+.quantity-controls .btn {
+  padding: 4px 10px;
+  font-size: 14px;
 }
 
 #empty-message {
-    margin-top: 30px;
-    color: red;
-    font-weight: bold;
+  font-size: 16px;
+  color: #dc3545;
+}
+
+.total {
+  text-align: right;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.order-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.order-actions .btn {
+  padding: 10px 20px;
+  font-size: 14px;
 }

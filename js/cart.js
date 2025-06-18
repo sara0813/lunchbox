@@ -1,5 +1,7 @@
+const isLocalCart = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+const baseURL = isLocalCart ? '../' : '/lunchbox/';
 
-const updateTotal = () => {
+function updateTotal() {
     const products = document.querySelectorAll('.product');
     let total = 0;
 
@@ -12,9 +14,9 @@ const updateTotal = () => {
 
     document.getElementById('total-price').textContent = total.toLocaleString();
     document.getElementById('empty-message').style.display = products.length ? 'none' : 'block';
-};
+}
 
-const attachEvents = () => {
+function attachEvents() {
     document.querySelectorAll('.plus').forEach(btn => {
         btn.onclick = e => {
             const qtyEl = e.target.parentNode.querySelector('.qty');
@@ -41,22 +43,36 @@ const attachEvents = () => {
             updateTotal();
         };
     });
-};
+}
 
-const deleteSelected = () => {
+function deleteSelected() {
     const selected = [...document.querySelectorAll('.product-check')].filter(cb => cb.checked);
-    if (!selected.length) return alert("삭제할 상품이 없습니다.");
+    if (!selected.length) {
+        alert("삭제할 상품이 없습니다.");
+        return;
+    }
     selected.forEach(cb => cb.closest('.product').remove());
     updateTotal();
-};
+}
 
-const orderAll = () => alert("전체 상품 주문을 진행합니다.");
+function orderAll() {
+    if (document.querySelectorAll('.product').length === 0) {
+        alert("주문할 상품이 없습니다.");
+        return;
+    }
+    alert("전체 상품 주문을 진행합니다.");
+    location.href = `${baseURL}html/cardpay.html`;
+}
 
-const orderSelected = () => {
+function orderSelected() {
     const selected = [...document.querySelectorAll('.product-check')].filter(cb => cb.checked);
-    if (!selected.length) return alert("선택한 상품이 없습니다.");
+    if (!selected.length) {
+        alert("선택한 상품이 없습니다.");
+        return;
+    }
     alert("선택한 상품 주문을 진행합니다.");
-};
+    location.href = `${baseURL}html/cardpay.html`;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     attachEvents();
