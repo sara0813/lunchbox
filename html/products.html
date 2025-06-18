@@ -25,27 +25,28 @@
 
     <!-- 본문 -->
     <div class="container mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-            <h4 class="fw-bold mb-0">전체 상품</h4>
-            <div class="ms-auto sort-bar">
-                <select id="sortOption" class="form-select w-auto sort-select">
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <h4 class="fw-bold mb-0">전체 상품</h4>
 
-                    <option value="discount" selected>할인율 높은 순</option>
-                    <option value="priceAsc">낮은 가격순</option>
-                    <option value="priceDesc">높은 가격순</option>
-                    <option value="review">리뷰 많은 순</option>
-                </select>
-            </div>
-
-            <div id="sort-template" data-title="할인품목"></div>
-        </div>
-
-        <div class="row g-3" id="product-list"></div>
-        <!-- 더보기 버튼을 가운데에 정렬 -->
-        <div class="d-flex justify-content-center mt-4 w-100">
-            <button id="loadMoreBtn" class="btn btn-danger px-4">더보기</button>
-        </div>
+    <div class="ms-auto sort-bar">
+      <select id="sortOption" class="form-select w-auto sort-select">
+        <option value="discount" selected>할인율 높은 순</option>
+        <option value="priceAsc">낮은 가격순</option>
+        <option value="priceDesc">높은 가격순</option>
+        <option value="review">리뷰 많은 순</option>
+      </select>
     </div>
+  </div>
+
+  <!-- 상품 카드 영역 -->
+  <div class="row g-4" id="product-list"></div>
+
+  <!-- 더보기 버튼 -->
+  <div class="d-flex justify-content-center mt-4 w-100">
+    <button id="loadMoreBtn" class="btn btn-danger px-4">더보기</button>
+  </div>
+</div>
+
 
     <div id="footer"></div>
 
@@ -58,8 +59,8 @@
             .then(res => res.text())
             .then(html => document.getElementById("tab-container").innerHTML = html);
     </script>
-    <script src="js/tabMenu.js"></script>
-    <script src="js/tab1.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/renderProducts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>

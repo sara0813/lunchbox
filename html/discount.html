@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>전체 상품</title>
+    <title>할인 상품</title>
     <script>
         const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
         const base = document.createElement('base');
@@ -26,7 +26,7 @@
     <!-- 본문 -->
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-            <h4 class="fw-bold mb-0">전체 상품</h4>
+            <h4 class="fw-bold mb-0">할인 상품</h4>
             <div class="ms-auto sort-bar">
                 <select id="sortOption" class="form-select w-auto sort-select">
 
@@ -38,8 +38,9 @@
             </div>
 
             <div id="sort-template" data-title="할인품목"></div>
+           <div class="row g-4" id="product-list"></div>
+
         </div>
-        <div class="row g-3" id="product-list"></div>
         <div class="text-center mt-4">
             <button id="loadMoreBtn" class="btn btn-danger px-4">더보기</button>
         </div>
@@ -57,7 +58,12 @@
             .then(html => document.getElementById("tab-container").innerHTML = html);
     </script>
     <script src="js/tabMenu.js"></script>
-    <script src="js/tab3.js"></script>
+
+    <script src="js/products.js"></script>
+    <script src="js/discount.js"></script>
+    
+    
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>

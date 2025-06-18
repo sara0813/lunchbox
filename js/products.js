@@ -1,87 +1,130 @@
-const products = Array.from({ length: 30 }, (_, i) => {
-  const price = 5000 + i * 100;
-  const original = i % 3 === 0 ? price + 1000 : price;
-  const hasDiscount = original > price;
-  return {
-    title: `[도시락 ${String.fromCharCode(65 + i)}]`,
-    price: `₩${price.toLocaleString()}`,
-    original: `₩${original.toLocaleString()}`,
+window.products = [
+  {
+    title: "훈제오리 + 채소볶음 + 현미밥",
+    image: "images/15.png",
+    price: 8900,
+    original: 8900,
     rating: "★★★★☆",
-    reviews: Math.floor(Math.random() * 1000) + 100,
-    priceValue: price,
-    discountPercent: hasDiscount ? Math.round((original - price) / original * 100) : 0
-  };
-});
-
-let currentCount = 12;
-
-// 상품 출력 함수
-function renderProducts(list) {
-  const container = document.getElementById("product-list");
-  if (!container) {
-    console.error("상품 컨테이너가 없습니다.");
-    return;
+    reviews: 213
+  },
+  {
+    title: "닭가슴살 큐브 + 단호박",
+    image: "images/6.png",
+    price: 6900,
+    original: 8200,
+    rating: "★★★★★",
+    reviews: 267
+  },
+  {
+    title: "곤약밥 + 닭가슴살 장조림",
+    image: "images/8.png",
+    price: 6700,
+    original: 6700,
+    rating: "★★★★☆",
+    reviews: 158
+  },
+  {
+    title: "닭가슴살 김치볶음밥",
+    image: "images/14.png",
+    price: 6200,
+    original: 6900,
+    rating: "★★★★☆",
+    reviews: 198
+  },
+  {
+    title: "에그마요 샐러드 도시락",
+    image: "images/11.png",
+    price: 5800,
+    original: 5800,
+    rating: "★★★☆☆",
+    reviews: 117
+  },
+  {
+    title: "두부 스크램블 + 샐러드",
+    image: "images/4.png",
+    price: 6200,
+    original: 6800,
+    rating: "★★★☆☆",
+    reviews: 143
+  },
+  {
+    title: "닭가슴살 브로콜리 도시락",
+    image: "images/1.png",
+    price: 6500,
+    original: 7300,
+    rating: "★★★★☆",
+    reviews: 221
+  },
+  {
+    title: "연어 스테이크 + 현미밥",
+    image: "images/3.png",
+    price: 8500,
+    original: 8900,
+    rating: "★★★★☆",
+    reviews: 305
+  },
+  {
+    title: "곤약면 + 닭가슴살 야채볶음",
+    image: "images/12.png",
+    price: 6600,
+    original: 6600,
+    rating: "★★★★☆",
+    reviews: 186
+  },
+  {
+    title: "통밀 또띠아 + 닭가슴살 랩",
+    image: "images/9.png",
+    price: 7000,
+    original: 7600,
+    rating: "★★★☆☆",
+    reviews: 126
+  },
+  {
+    title: "버섯 불고기 도시락",
+    image: "images/13.png",
+    price: 7200,
+    original: 7200,
+    rating: "★★★★☆",
+    reviews: 271
+  },
+  {
+    title: "저탄수 콜리플라워 라이스 도시락",
+    image: "images/10.png",
+    price: 6100,
+    original: 6900,
+    rating: "★★★★☆",
+    reviews: 203
+  },
+  {
+    title: "현미밥 + 계란말이 + 나물반찬",
+    image: "images/5.png",
+    price: 5900,
+    original: 5900,
+    rating: "★★★★☆",
+    reviews: 198
+  },
+  {
+    title: "현미밥 + 소고기 장조림 + 채소볶음",
+    image: "images/7.png",
+    price: 7900,
+    original: 8900,
+    rating: "★★★★☆",
+    reviews: 322
+  },
+  {
+    title: "닭가슴살 스테이크 + 고구마",
+    image: "images/2.png",
+    price: 7300,
+    original: 7900,
+    rating: "★★★★★",
+    reviews: 189
   }
+];
 
-  container.innerHTML = "";
-  list.slice(0, currentCount).forEach(product => {
-    const card = `
-      <div class="col-6 col-md-3">
-        <div class="product-card">
-          <div class="product-image">
-            ${product.discountPercent ? `<span class="discount-badge">-${product.discountPercent}%</span>` : ""}
-          </div>
-          <button class="cart-btn" onclick="alert('장바구니에 담겼습니다!')">장바구니에 담기</button>
-          <div class="mt-2 px-2 pb-3">
-            <p class="fw-bold mb-1">${product.title}</p>
-            <small class="text-danger fw-bold">${product.price}</small>
-            ${product.discountPercent ? `<del class="text-muted">${product.original}</del>` : ""}
-            <div class="text-warning">${product.rating} 
-              <small class="text-muted">(${product.reviews})</small>
-            </div>
-          </div>
-          <a href="html/products.html" class="stretched-link"></a>
-        </div>
-      </div>
-    `;
-    container.innerHTML += card;
-  });
-}
-
-// 정렬 후 출력 함수
-function sortAndRender(option) {
-  let sorted = [...products];
-  switch (option) {
-    case "discount":
-      sorted.sort((a, b) => b.discountPercent - a.discountPercent);
-      break;
-    case "priceAsc":
-      sorted.sort((a, b) => a.priceValue - b.priceValue);
-      break;
-    case "priceDesc":
-      sorted.sort((a, b) => b.priceValue - a.priceValue);
-      break;
-    case "review":
-      sorted.sort((a, b) => b.reviews - a.reviews);
-      break;
+products.forEach(p => {
+  if (p.original && p.original > p.price) {
+    p.discount = Math.round(((p.original - p.price) / p.original) * 100);
+  } else {
+    p.discount = 0;
   }
-  renderProducts(sorted);
-}
-
-// ✅ 전역 등록: 다른 파일에서 쓸 수 있게!
-window.sortAndRender = sortAndRender;
-
-// ✅ DOM 로드 후 상품 첫 렌더링
-document.addEventListener("DOMContentLoaded", () => {
-  sortAndRender("discount");
-
-  document.getElementById("sortOption").addEventListener("change", e => {
-    currentCount = 12;
-    sortAndRender(e.target.value);
-  });
-
-  document.getElementById("loadMoreBtn").addEventListener("click", () => {
-    currentCount += 8;
-    sortAndRender(document.getElementById("sortOption").value);
-  });
 });

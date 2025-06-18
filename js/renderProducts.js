@@ -1,60 +1,84 @@
-const products = Array.from({ length: 30 }, (_, i) => {
-  const price = 5000 + i * 100;
-  const original = i % 3 === 0 ? price + 1000 : price;
-  const hasDiscount = original > price;
-  return {
-    title: `[도시락 ${String.fromCharCode(65 + i)}]`,
-    price: `₩${price.toLocaleString()}`,
-    original: `₩${original.toLocaleString()}`,
-    rating: "★★★★☆",
-    reviews: Math.floor(Math.random() * 1000) + 100,
-    priceValue: price,
-    discountPercent: hasDiscount ? Math.round((original - price) / original * 100) : 0
-  };
-});
+const productListDiv = document.getElementById("product-list");
+const loadMoreBtn = document.getElementById("loadMoreBtn");
+const sortSelect = document.getElementById("sortOption");
 
-const currentCount = 8; // 고정된 8개만 출력
+let currentIndex = 0;
+const initialLoad = 12;
+const batchSize = 3;
+let sortedProducts = [];
 
-// 상품 출력 함수
-function renderProducts(list) {
-  const container = document.getElementById("product-list");
-  if (!container) {
-    console.error("상품 컨테이너가 없습니다.");
-    return;
+// 렌더링 함수
+function renderProducts(batch = initialLoad, reset = false) {
+  if (reset) {
+    productListDiv.innerHTML = "";
+    currentIndex = 0;
   }
 
-  container.innerHTML = "";
-  list.slice(0, currentCount).forEach(product => {
-    const card = `
-      <div class="col-6 col-md-3">
-        <div class="product-card">
-          <div class="product-image">
-            ${product.discountPercent ? `<span class="discount-badge">-${product.discountPercent}%</span>` : ""}
-          </div>
-          <button class="cart-btn" onclick="alert('장바구니에 담겼습니다!')">장바구니에 담기</button>
-          <div class="mt-2 px-2 pb-3">
-            <p class="fw-bold mb-1">${product.title}</p>
-            <small class="text-danger fw-bold">${product.price}</small>
-            ${product.discountPercent ? `<del class="text-muted">${product.original}</del>` : ""}
-            <div class="text-warning">${product.rating} 
-              <small class="text-muted">(${product.reviews})</small>
-            </div>
-          </div>
-          <a href="html/products.html" class="stretched-link"></a>
+  const end = Math.min(currentIndex + batch, sortedProducts.length);
+  for (let i = currentIndex; i < end; i++) {
+    const p = sortedProducts[i];
+    const col = document.createElement("div");
+    col.className = "col-6 col-md-3";
+
+    col.innerHTML = `
+      <div class="product-card position-relative">
+        ${p.discount > 0 ? `<div class="discount-badge">${p.discount}% 할인</div>` : ""}
+        <div class="product-image">
+          <img src="${p.image}" alt="${p.title}" class="img-fluid w-100 h-100 object-fit-cover">
         </div>
+        <div class="mt-2">
+          <div class="fw-semibold">${p.title}</div>
+          <div class="text-muted small">${p.rating} | 리뷰 ${p.reviews.toLocaleString()}개</div>
+          <div class="text-danger fw-bold">₩${p.price.toLocaleString()}</div>
+          ${p.discount > 0 && p.original ? `<div class="text-muted text-decoration-line-through small">₩${p.original.toLocaleString()}</div>` : ""}
+        </div>
+        <button class="cart-btn">장바구니에 담기</button>
       </div>
     `;
-    container.innerHTML += card;
-  });
+
+    productListDiv.appendChild(col);
+
+    // ✅ 버튼 이벤트 바인딩
+    const cartButton = col.querySelector(".cart-btn");
+    if (cartButton) {
+      cartButton.addEventListener("click", () => {
+        alert(`[${p.title}]이(가) 장바구니에 추가되었습니다!`);
+      });
+    }
+  }
+
+  currentIndex = end;
+  loadMoreBtn.style.display = currentIndex >= sortedProducts.length ? "none" : "block";
 }
 
-// 정렬 후 출력 함수 (필수 아님 - 하나의 방식만 보여줄 경우)
-function sortAndRender() {
-  const discounted = products.filter(p => p.discountPercent > 0);
-  renderProducts(discounted);
+// 정렬 함수
+function sortProducts(criteria) {
+  sortedProducts = [...products];
+
+  switch (criteria) {
+    case "discount":
+      sortedProducts.sort((a, b) => b.discount - a.discount);
+      break;
+    case "priceAsc":
+      sortedProducts.sort((a, b) => a.price - b.price);
+      break;
+    case "priceDesc":
+      sortedProducts.sort((a, b) => b.price - a.price);
+      break;
+    case "review":
+      sortedProducts.sort((a, b) => b.reviews - a.reviews);
+      break;
+  }
+
+  renderProducts(initialLoad, true); // reset
 }
 
-// DOM 로드 후 실행
-document.addEventListener("DOMContentLoaded", () => {
-  sortAndRender();
+// 이벤트 바인딩
+sortSelect.addEventListener("change", () => {
+  sortProducts(sortSelect.value);
 });
+
+loadMoreBtn.addEventListener("click", () => renderProducts(batchSize));
+
+// 초기 실행
+sortProducts("discount");
