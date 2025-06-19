@@ -74,7 +74,7 @@ python3 -m http.server 8080
 
 ---
 
-## 🔗 사이트 바로가기
+## 사이트 바로가기
 
 [HEALTHYME 웹사이트 바로가기](https://sara0813.github.io/lunchbox/)
 
