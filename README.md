@@ -66,7 +66,9 @@ cd lunchbox
 ```
 
 3. index.html을 Live Server 또는 브라우저로 실행합니다.
-VSCode의 경우: Live Server 확장 설치 후 index.html 우클릭 → "Open with Live Server"
+
+VSCode의 경우: Live Server 확장 설치 후 index.html 우클릭하여 "Open with Live Server"
+
 또는 Python 서버 사용: 
 ```bash
 python3 -m http.server 8080
